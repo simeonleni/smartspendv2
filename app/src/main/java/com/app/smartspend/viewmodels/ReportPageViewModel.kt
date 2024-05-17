@@ -2,10 +2,10 @@ package com.app.smartspend.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nikolovlazar.smartspend.db
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.utils.calculateDateRange
+import com.app.smartspend.db
+import com.app.smartspend.models.Expense
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.utils.calculateDateRange
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

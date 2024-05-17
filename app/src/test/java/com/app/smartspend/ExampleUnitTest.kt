@@ -1,4 +1,4 @@
-package com.nikolovlazar.smartspend
+package com.app.smartspend
 
 import org.junit.Test
 

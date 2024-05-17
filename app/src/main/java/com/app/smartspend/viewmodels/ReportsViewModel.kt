@@ -1,7 +1,7 @@
 package com.app.smartspend.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.nikolovlazar.smartspend.models.Recurrence
+import com.app.smartspend.models.Recurrence
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,6 +1,6 @@
 package com.app.smartspend.utils
 
-import com.nikolovlazar.smartspend.models.Recurrence
+import com.app.smartspend.models.Recurrence
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth

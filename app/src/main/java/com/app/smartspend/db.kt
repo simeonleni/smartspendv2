@@ -1,7 +1,7 @@
 package com.app.smartspend
 
-import com.nikolovlazar.smartspend.models.Category
-import com.nikolovlazar.smartspend.models.Expense
+import com.app.smartspend.models.Category
+import com.app.smartspend.models.Expense
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 

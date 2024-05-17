@@ -13,14 +13,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.nikolovlazar.smartspend.components.PickerTrigger
-import com.nikolovlazar.smartspend.components.expensesList.ExpensesList
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.ui.theme.GoodbyeMoneyTheme
-import com.nikolovlazar.smartspend.ui.theme.LabelSecondary
-import com.nikolovlazar.smartspend.ui.theme.TopAppBarBackground
-import com.nikolovlazar.smartspend.ui.theme.Typography
-import com.nikolovlazar.smartspend.viewmodels.ExpensesViewModel
+import com.app.smartspend.components.PickerTrigger
+import com.app.smartspend.components.expensesList.ExpensesList
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.ui.theme.SmartSpend
+import com.app.smartspend.ui.theme.LabelSecondary
+import com.app.smartspend.ui.theme.TopAppBarBackground
+import com.app.smartspend.ui.theme.Typography
+import com.app.smartspend.viewmodels.ExpensesViewModel
 import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,7 +107,7 @@ fun Expenses(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ExpensesPreview() {
-  GoodbyeMoneyTheme {
+  SmartSpend {
     Expenses(navController = rememberNavController())
   }
 }

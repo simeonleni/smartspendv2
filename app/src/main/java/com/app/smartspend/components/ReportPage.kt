@@ -10,16 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.nikolovlazar.smartspend.components.charts.MonthlyChart
-import com.nikolovlazar.smartspend.components.charts.WeeklyChart
-import com.nikolovlazar.smartspend.components.charts.YearlyChart
-import com.nikolovlazar.smartspend.components.expensesList.ExpensesList
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.ui.theme.LabelSecondary
-import com.nikolovlazar.smartspend.ui.theme.Typography
-import com.nikolovlazar.smartspend.utils.formatDayForRange
-import com.nikolovlazar.smartspend.viewmodels.ReportPageViewModel
-import com.nikolovlazar.smartspend.viewmodels.viewModelFactory
+import com.app.smartspend.components.charts.MonthlyChart
+import com.app.smartspend.components.charts.WeeklyChart
+import com.app.smartspend.components.charts.YearlyChart
+import com.app.smartspend.components.expensesList.ExpensesList
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.ui.theme.LabelSecondary
+import com.app.smartspend.ui.theme.Typography
+import com.app.smartspend.utils.formatDayForRange
+import com.app.smartspend.viewmodels.ReportPageViewModel
+import com.app.smartspend.viewmodels.viewModelFactory
 import java.text.DecimalFormat
 import java.time.LocalDate
 

@@ -3,8 +3,8 @@ package com.app.smartspend.viewmodels
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nikolovlazar.smartspend.db
-import com.nikolovlazar.smartspend.models.Category
+import com.app.smartspend.db
+import com.app.smartspend.models.Category
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

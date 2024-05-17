@@ -1,9 +1,9 @@
 package com.app.smartspend.mock
 
 import androidx.compose.ui.graphics.Color
-import com.nikolovlazar.smartspend.models.Category
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.models.Recurrence
+import com.app.smartspend.models.Category
+import com.app.smartspend.models.Expense
+import com.app.smartspend.models.Recurrence
 import io.github.serpro69.kfaker.Faker
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit

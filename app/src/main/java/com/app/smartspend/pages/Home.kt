@@ -2,91 +2,118 @@
 
 package com.app.smartspend.pages
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.InputChip
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.nikolovlazar.smartspend.models.Category
-import com.nikolovlazar.smartspend.ui.theme.TopAppBarBackground
-import com.nikolovlazar.smartspend.viewmodels.CategoriesViewModel
-import com.nikolovlazar.smartspend.viewmodels.ExpensesViewModel
+import com.app.smartspend.models.Category
+import com.app.smartspend.models.DayExpenses
+import com.app.smartspend.models.groupedByCategory
+import com.app.smartspend.ui.theme.TopAppBarBackground
+import com.app.smartspend.viewmodels.CategoriesViewModel
+import com.app.smartspend.viewmodels.ExpensesViewModel
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
     categoriesViewModel: CategoriesViewModel = viewModel(),
     expensesViewModel: ExpensesViewModel = viewModel()
 ) {
-    val categoriesState = categoriesViewModel.uiState.collectAsState()
-    val expensesState = expensesViewModel.uiState.collectAsState()
+    val categoriesState by categoriesViewModel.uiState.collectAsState()
+    val expensesState by expensesViewModel.uiState.collectAsState()
+    var selectedCategory by rememberSaveable { mutableStateOf<Category?>(null) }
+
     Scaffold(topBar = {
         MediumTopAppBar(
-            title = { Text("Expenses") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+            title = { Text("Home") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = TopAppBarBackground
             )
         )
-    },
+    }, content = { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            CategoryChips(categories = categoriesState.categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = { selectedCategory = it })
 
-        content = {
-            Column(
-                modifier = Modifier
-                    .padding(top = it.calculateTopPadding())
-                    .fillMaxSize()
-            ) {
-                Text(text = "Categories", modifier = Modifier.padding(bottom = 8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(categoriesState.value.categories) { category ->
-                        CategoryItem(category = category)
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(onClick = { /* TODO: Implement budget creation */ }) {
-                    Text(text = "Create Budget")
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                val totalExpenses = expensesState.value.sumTotal
-                val budgetValue = 0 // Replace with actual budget value
-
-                Text(
-                    text = "Difference: ${budgetValue - totalExpenses}",
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+            Button(onClick = { /* TODO: Implement budget creation */ }) {
+                Text(text = "Create Budget")
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val categoryName = selectedCategory?.name ?: "Select a category"
+            val totalExpenses = selectedCategory?.let { category ->
+                expensesState.expenses.groupedByCategory()
+                    .getOrElse(category.name) { DayExpenses(emptyList(), 0.0) }.total
+            } ?: 0.0
+
+            Text(
+                text = "Total Expenses for $categoryName: $totalExpenses",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+
+// Log the selected category and total expenses
+            selectedCategory?.let { category ->
+                val totalExpenses = expensesState.expenses.groupedByCategory()
+                    .getOrElse(category.name) { DayExpenses(emptyList(), 0.0) }.total
+                Log.d("Home", "Category: ${category.name}, Total expenses: $totalExpenses")
+            }
+
         }
-    )
+    })
 }
 
+
 @Composable
-fun CategoryItem(category: Category) {
-    Text(text = category.name,
-        modifier = Modifier
-            .padding(8.dp)
-            .clickable { /* TODO: Filter expenses based on the selected category */ })
+private fun CategoryChips(
+    categories: List<Category>, selectedCategory: Category?, onCategorySelected: (Category) -> Unit
+) {
+    Text(text = "Categories", modifier = Modifier.padding(bottom = 8.dp))
+
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(categories) { category ->
+            InputChip(selected = selectedCategory == category,
+                onClick = { onCategorySelected(category) },
+                label = { Text(text = category.name) },
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+        }
+    }
 }
 
 @Preview
 @Composable
-fun HomePreview(){
+fun HomePreview() {
     Home(categoriesViewModel = CategoriesViewModel(), expensesViewModel = ExpensesViewModel())
 }

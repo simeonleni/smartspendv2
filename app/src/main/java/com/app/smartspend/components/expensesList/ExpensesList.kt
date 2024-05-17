@@ -2,17 +2,23 @@ package com.app.smartspend.components.expensesList
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nikolovlazar.smartspend.components.ExpensesDayGroup
-import com.nikolovlazar.smartspend.mock.mockExpenses
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.models.groupedByDay
-import com.nikolovlazar.smartspend.ui.theme.GoodbyeMoneyTheme
+import com.app.smartspend.components.ExpensesDayGroup
+import com.app.smartspend.mock.mockExpenses
+import com.app.smartspend.models.Expense
+import com.app.smartspend.models.groupedByCategory
+import com.app.smartspend.models.groupedByDay
+import com.app.smartspend.ui.theme.SmartSpend
 
 @Composable
 fun ExpensesList(expenses: List<Expense>, modifier: Modifier = Modifier) {
@@ -35,10 +41,11 @@ fun ExpensesList(expenses: List<Expense>, modifier: Modifier = Modifier) {
   }
 }
 
+
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun Preview() {
-  GoodbyeMoneyTheme {
+  SmartSpend {
     ExpensesList(mockExpenses)
   }
 }

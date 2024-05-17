@@ -5,9 +5,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.ui.theme.LabelSecondary
-import com.nikolovlazar.smartspend.ui.theme.Typography
+import com.app.smartspend.models.Expense
+import com.app.smartspend.ui.theme.LabelSecondary
+import com.app.smartspend.ui.theme.Typography
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -19,12 +19,12 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
       Text(
-        expense.note ?: expense.category!!.name,
-        style = Typography.headlineMedium
+        text = expense.note ?: expense.category?.name ?: "Unknown",
+        style = Typography.headlineLarge
       )
       Text(
-        "USD ${DecimalFormat("0.#").format(expense.amount)}",
-        style = Typography.headlineMedium
+        text = "USD ${DecimalFormat("0.#").format(expense.amount)}",
+        style = Typography.headlineLarge
       )
     }
     Row(
@@ -33,9 +33,9 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
         .padding(top = 6.dp),
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
-      CategoryBadge(category = expense.category!!)
+      expense.category?.let { CategoryBadge(category = it) }
       Text(
-        expense.date.format(DateTimeFormatter.ofPattern("HH:mm")),
+        text = expense.date.format(DateTimeFormatter.ofPattern("HH:mm")),
         style = Typography.bodyMedium,
         color = LabelSecondary
       )

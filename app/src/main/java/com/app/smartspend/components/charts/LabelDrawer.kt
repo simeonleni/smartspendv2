@@ -5,8 +5,8 @@ import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.nativeCanvas
 import com.github.tehras.charts.piechart.utils.toLegacyInt
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.ui.theme.LabelSecondary
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.ui.theme.LabelSecondary
 
 class LabelDrawer(val recurrence: Recurrence, private val lastDay: Int? = -1) :
   com.github.tehras.charts.bar.renderer.label.LabelDrawer {

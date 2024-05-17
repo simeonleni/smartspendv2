@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.nikolovlazar.smartspend.ui.theme.Primary
-import com.nikolovlazar.smartspend.ui.theme.TextPrimary
+import com.app.smartspend.ui.theme.Primary
+import com.app.smartspend.ui.theme.TextPrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -2,10 +2,10 @@ package com.app.smartspend.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nikolovlazar.smartspend.db
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.utils.calculateDateRange
+import com.app.smartspend.db
+import com.app.smartspend.models.Expense
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.utils.calculateDateRange
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +34,31 @@ class ExpensesViewModel: ViewModel() {
       setRecurrence(Recurrence.Daily)
     }
   }
+
+
+
+  fun filterExpensesByCategory(categoryName: String) {
+    viewModelScope.launch(Dispatchers.IO) {
+      val filteredExpenses = if (categoryName.isNotBlank()) {
+        db.query<Expense>().find().filter { it.category?.name.equals(categoryName, ignoreCase = true) }
+      } else {
+        db.query<Expense>().find()
+      }
+
+
+      val sumTotal = filteredExpenses.sumOf { it.amount }
+
+      println("Filtered Expenses for category $categoryName: $filteredExpenses")
+      println("Total expenses for category $categoryName: $sumTotal")
+
+      _uiState.value = _uiState.value.copy(
+        expenses = filteredExpenses,
+        sumTotal = sumTotal
+      )
+    }
+  }
+
+
 
   fun setRecurrence(recurrence: Recurrence) {
     val (start, end) = calculateDateRange(recurrence, 0)

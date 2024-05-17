@@ -10,11 +10,11 @@ import androidx.compose.ui.unit.sp
 import com.github.tehras.charts.bar.BarChart
 import com.github.tehras.charts.bar.BarChartData
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
-import com.nikolovlazar.smartspend.models.Expense
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.models.groupedByDayOfMonth
-import com.nikolovlazar.smartspend.ui.theme.LabelSecondary
-import com.nikolovlazar.smartspend.utils.simplifyNumber
+import com.app.smartspend.models.Expense
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.models.groupedByDayOfMonth
+import com.app.smartspend.ui.theme.LabelSecondary
+import com.app.smartspend.utils.simplifyNumber
 import java.time.LocalDate
 import java.time.YearMonth
 

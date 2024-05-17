@@ -20,18 +20,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.app.smartspend.components.TableRow
+import com.app.smartspend.components.UnstyledTextField
+import com.app.smartspend.ui.theme.BackgroundElevated
+import com.app.smartspend.ui.theme.Destructive
+import com.app.smartspend.ui.theme.DividerColor
+import com.app.smartspend.ui.theme.SmartSpend
+import com.app.smartspend.ui.theme.TopAppBarBackground
+import com.app.smartspend.viewmodels.CategoriesViewModel
 import com.github.skydoves.colorpicker.compose.*
-import com.nikolovlazar.smartspend.R
-import com.nikolovlazar.smartspend.components.TableRow
-import com.nikolovlazar.smartspend.components.UnstyledTextField
-import com.nikolovlazar.smartspend.ui.theme.*
-import com.nikolovlazar.smartspend.viewmodels.CategoriesViewModel
+import com.app.smartspend.R
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -68,17 +74,17 @@ fun Categories(
   }, content = { innerPadding ->
     Column(
       modifier = Modifier
-        .padding(innerPadding)
-        .fillMaxHeight(),
+          .padding(innerPadding)
+          .fillMaxHeight(),
       verticalArrangement = Arrangement.SpaceBetween,
     ) {
       Column(modifier = Modifier.weight(1f)) {
         AnimatedVisibility(visible = true) {
           LazyColumn(
             modifier = Modifier
-              .padding(16.dp)
-              .clip(Shapes.large)
-              .fillMaxWidth()
+                .padding(16.dp)
+                //.clip(Shapes)
+                .fillMaxWidth()
           ) {
             itemsIndexed(
               uiState.categories,
@@ -113,13 +119,14 @@ fun Categories(
                         horizontal = 16.dp,
                         vertical = 10.dp
                       ),
-                      style = Typography.bodyMedium,
                     )
                   }
                 }
               }
               if (index < uiState.categories.size - 1) {
-                Row(modifier = Modifier.background(BackgroundElevated).height(1.dp)) {
+                Row(modifier = Modifier
+                    .background(BackgroundElevated)
+                    .height(1.dp)) {
                   Divider(
                     modifier = Modifier.padding(start = 16.dp),
                     thickness = 1.dp,
@@ -133,39 +140,39 @@ fun Categories(
       }
       Row(
         modifier = Modifier
-          .padding(horizontal = 16.dp)
-          .padding(bottom = 16.dp)
-          .fillMaxWidth(),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
       ) {
         if (uiState.colorPickerShowing) {
           Dialog(onDismissRequest = vm::hideColorPicker) {
-            Surface(color = BackgroundElevated, shape = Shapes.large) {
+            Surface(color = BackgroundElevated, /*shape = Shapes.large*/) {
               Column(
                 modifier = Modifier.padding(all = 30.dp)
               ) {
-                Text("Select a color", style = Typography.titleLarge)
+                Text("Select a color", style = TextStyle(fontSize = 12.sp))
                 Row(
                   modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp),
+                      .fillMaxWidth()
+                      .padding(top = 24.dp),
                   horizontalArrangement = Arrangement.Center,
                   verticalAlignment = Alignment.CenterVertically
                 ) {
                   AlphaTile(
                     modifier = Modifier
-                      .fillMaxWidth()
-                      .height(60.dp)
-                      .clip(RoundedCornerShape(6.dp)),
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .clip(RoundedCornerShape(6.dp)),
                     controller = colorPickerController
                   )
                 }
                 HsvColorPicker(
                   modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .padding(10.dp),
+                      .fillMaxWidth()
+                      .height(300.dp)
+                      .padding(10.dp),
                   controller = colorPickerController,
                   onColorChanged = { envelope ->
                     vm.setNewCategoryColor(envelope.color)
@@ -174,8 +181,8 @@ fun Categories(
                 TextButton(
                   onClick = vm::hideColorPicker,
                   modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp),
+                      .fillMaxWidth()
+                      .padding(top = 24.dp),
                 ) {
                   Text("Done")
                 }
@@ -196,10 +203,10 @@ fun Categories(
         Surface(
           color = BackgroundElevated,
           modifier = Modifier
-            .height(44.dp)
-            .weight(1f)
-            .padding(start = 16.dp),
-          shape = Shapes.large,
+              .height(44.dp)
+              .weight(1f)
+              .padding(start = 16.dp),
+          //shape = Shapes.large,
         ) {
           Column(
             verticalArrangement = Arrangement.Center,
@@ -233,7 +240,7 @@ fun Categories(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun CategoriesPreview() {
-  GoodbyeMoneyTheme {
+  SmartSpend {
     Categories(navController = rememberNavController())
   }
 }

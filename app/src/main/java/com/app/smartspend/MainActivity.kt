@@ -1,42 +1,49 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.app.smartspend
 
-import com.nikolovlazar.smartspend.pages.Home
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.nikolovlazar.smartspend.pages.*
-import com.nikolovlazar.smartspend.ui.theme.GoodbyeMoneyTheme
-import com.nikolovlazar.smartspend.ui.theme.TopAppBarBackground
-import com.nikolovlazar.smartspend.viewmodels.CategoriesViewModel
-import com.nikolovlazar.smartspend.viewmodels.ExpensesViewModel
+import com.app.smartspend.pages.Add
+import com.app.smartspend.pages.Categories
+import com.app.smartspend.pages.Home
+import com.app.smartspend.pages.Reports
+import com.app.smartspend.pages.Settings
+import com.app.smartspend.ui.theme.SmartSpend
+import com.app.smartspend.ui.theme.TopAppBarBackground
+import com.app.smartspend.viewmodels.CategoriesViewModel
 import io.sentry.compose.withSentryObservableEffect
 
+
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContent {
-            GoodbyeMoneyTheme {
+            SmartSpend {
                 var showBottomBar by rememberSaveable { mutableStateOf(true) }
                 val navController = rememberNavController().withSentryObservableEffect()
                 val backStackEntry by navController.currentBackStackEntryAsState()
@@ -61,28 +68,16 @@ class MainActivity : ComponentActivity() {
                                         contentDescription = "home"
                                     )
                                 })
-                            //Above code is gor the home page, that will merge the expenses and the report screen
 
-
-                            NavigationBarItem(selected = backStackEntry?.destination?.route == "expenses",
-                                onClick = { navController.navigate("expenses") },
-                                label = {
-                                    Text("Expenses")
-                                },
-                                icon = {
-                                    Icon(
-                                        painterResource(id = R.drawable.upload),
-                                        contentDescription = "Upload"
-                                    )
-                                })
                             NavigationBarItem(selected = backStackEntry?.destination?.route == "reports",
                                 onClick = { navController.navigate("reports") },
                                 label = {
                                     Text("Reports")
                                 },
                                 icon = {
+                                    //Use appropriate icon for the chart, extend the material icons
                                     Icon(
-                                        painterResource(id = R.drawable.bar_chart),
+                                        imageVector = Icons.Default.Info,
                                         contentDescription = "Reports"
                                     )
                                 })
@@ -94,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 icon = {
                                     Icon(
-                                        painterResource(id = R.drawable.add),
+                                        imageVector = Icons.Default.Add,
                                         contentDescription = "Add"
                                     )
                                 })
@@ -107,7 +102,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 icon = {
                                     Icon(
-                                        painterResource(id = R.drawable.settings_outlined),
+                                        imageVector = Icons.Default.Settings,
                                         contentDescription = "Settings"
                                     )
                                 })
@@ -123,7 +118,7 @@ class MainActivity : ComponentActivity() {
                                     .fillMaxSize()
                                     .padding(innerPadding),
                             ) {
-                                Home(CategoriesViewModel(), ExpensesViewModel())
+                                Home(CategoriesViewModel())
                             }
                         }
                         composable("reports") {
@@ -165,21 +160,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun DefaultPreview() {
-    GoodbyeMoneyTheme {
-        Surface {
-            Greeting("Android")
         }
     }
 }

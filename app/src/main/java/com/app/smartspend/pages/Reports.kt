@@ -1,16 +1,19 @@
 package com.app.smartspend.pages
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.painterResource
+import androidx.core.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.nikolovlazar.smartspend.components.ReportPage
-import com.nikolovlazar.smartspend.models.Recurrence
-import com.nikolovlazar.smartspend.ui.theme.TopAppBarBackground
-import com.nikolovlazar.smartspend.viewmodels.ReportsViewModel
+import com.app.smartspend.components.ReportPage
+import com.app.smartspend.models.Recurrence
+import com.app.smartspend.ui.theme.TopAppBarBackground
+import com.app.smartspend.viewmodels.ReportsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
@@ -33,7 +36,9 @@ fun Reports(vm: ReportsViewModel = viewModel()) {
         actions = {
           IconButton(onClick = vm::openRecurrenceMenu) {
             Icon(
-              painterResource(id = R.drawable.ic_today),
+
+              //Use an appropriate icon for the reports
+              imageVector = Icons.Default.DateRange,
               contentDescription = "Change recurrence"
             )
           }

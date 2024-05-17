@@ -3,6 +3,8 @@ package com.app.smartspend.components
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -13,11 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nikolovlazar.smartspend.R
-import com.nikolovlazar.smartspend.ui.theme.FillTertiary
-import com.nikolovlazar.smartspend.ui.theme.GoodbyeMoneyTheme
-import com.nikolovlazar.smartspend.ui.theme.Shapes
-import com.nikolovlazar.smartspend.ui.theme.Typography
+import com.app.smartspend.ui.theme.FillTertiary
+import com.app.smartspend.ui.theme.SmartSpend
+import com.app.smartspend.ui.theme.Shapes
+import com.app.smartspend.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +39,7 @@ fun PickerTrigger(
     ) {
       Text(label, style = Typography.titleSmall)
       Icon(
-        painterResource(R.drawable.ic_unfold_more),
+        imageVector = Icons.Default.ArrowDropDown,
         contentDescription = "Open picker",
         modifier = Modifier.padding(start = 10.dp)
       )
@@ -49,7 +50,7 @@ fun PickerTrigger(
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun Preview() {
-  GoodbyeMoneyTheme {
+  SmartSpend {
     PickerTrigger("this week", onClick = {})
   }
 }

@@ -6,9 +6,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.nikolovlazar.smartspend.models.Category
-import com.nikolovlazar.smartspend.ui.theme.Shapes
-import com.nikolovlazar.smartspend.ui.theme.Typography
+import com.app.smartspend.models.Category
+import com.app.smartspend.ui.theme.Shapes
+import com.app.smartspend.ui.theme.Typography
 
 @Composable
 fun CategoryBadge(category: Category, modifier: Modifier = Modifier) {
